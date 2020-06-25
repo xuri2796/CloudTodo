@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>07-图片绘制api</title>
+</head>
+<body>
+  <div id="cvBox">
+    <canvas id="canvasElem">
+      ie9 以上才支持 canvas
+      你的浏览器不支持canvas，请升级浏览器
+    </canvas>
+  </div>
+  <script>
+    (function () {
+    const canvas = document.querySelector('#canvasElem');
+    let ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 600;
+    canvas.style.border= "1px solid #000"
+    let x0 = 100,y0 = 400, // 原点在画布是的坐标
+    maxHeight=300,//设置坐标的上限为300
+    arrowWidth = 10; //设置箭头宽度
+    // 绘制 X 轴
+    ctx.beginPath();
+    ctx.strokeStyle='blue';
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(400+x0, y0);
+    // x轴上箭头
+    ctx.lineTo(400+x0-arrowWidth,y0-arrowWidth)
+    // 绘制x轴下箭头  
+    ctx.moveTo(400+x0, y0)
+    ctx.lineTo(400+x0-arrowWidth,y0+arrowWidth)
+    ctx.stroke();
+     // 绘制 Y 轴
+    ctx.beginPath() 
+    ctx.strokeStyle='orange';
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x0, 0);
+    // y轴左箭头
+    ctx.lineTo(x0-arrowWidth, arrowWidth);
+    ctx.moveTo(x0, 0)
+    ctx.lineTo(x0+arrowWidth, arrowWidth);
+    ctx.stroke();
+      // 折线数据
+      let dataList = [.3,.6,.8,.5],
+      pointWidth=400/(dataList.length+1);
+      // 绘制折线
+      ctx.beginPath();
+      ctx.strokeStyle = 'blue';
+      // 平均每段折线在x轴长度
+      for (let index = 0; index < dataList.length; index++) {
+        let x = x0 + (index+1)*pointWidth,
+        y = y0 - dataList[index]*maxHeight;
+        ctx.lineTo(x,y)
+      }
+      ctx.stroke()
+    }())
+
+  </script>
+</body>
+
+</html>

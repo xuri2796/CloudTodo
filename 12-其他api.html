@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>12-其他绘制api</title>
+</head>
+<body>
+  <div id="cvBox">
+    <canvas id="canvasElem">
+      ie9 以上才支持 canvas
+      你的浏览器不支持canvas，请升级浏览器
+    </canvas>
+  </div>
+  <script>
+    (function () {
+    const canvas = document.querySelector('#canvasElem');
+    let ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 600;
+    canvas.style.border= "1px solid #000";
+    // 绘制阴影
+    ctx.shadowColor='teal';//阴影颜色
+    ctx.shadowBlur=10; //阴影模糊
+    ctx.shadowOffsetX=13;
+    ctx.shadowOffsetY=13; //阴影偏移
+    // 线性渐变
+    // let grd = ctx.createLinearGradient(100, 100, 100+310, 100+270); //从哪到哪的线性
+    // grd.addColorStop(0, 'rgb(210,54,69)'); 
+    // grd.addColorStop(.6, 'rgb(26,154,93)');
+    // grd.addColorStop(1, 'rgb(120,47,165)'); //添加渐变颜色,第一个参数[0.0~1.0]
+    // ctx.fillStyle = grd;
+    // ctx.fillRect(100,100,310,270);// 进行矩形填充
+    //径向渐变
+    let rad = ctx.createRadialGradient(300, 300, 120, 420, 420, 160);
+    rad.addColorStop(0, 'rgb(210,54,69)'); 
+    rad.addColorStop(.6, 'rgb(26,154,93)');
+    rad.addColorStop(1, 'rgb(120,47,165)'); //添加渐变颜色,第一个参数[0.0~1.0]
+    ctx.fillStyle = rad;
+    ctx.fillRect(100,100,310,270);// 进行矩形填充
+    }())
+
+  </script>
+</body>
+
+</html>

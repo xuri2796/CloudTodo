@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>11-序列帧动画（面向对象）</title>
+    <script src="js/ItcastRect.js"></script>
+  </head>
+
+  <body>
+    <div id="cvBox">
+      <canvas id="canvasElem">
+        ie9 以上才支持 canvas 你的浏览器不支持canvas，请升级浏览器
+      </canvas>
+      <canvas id="canvasElem2">
+        ie9 以上才支持 canvas 你的浏览器不支持canvas，请升级浏览器
+      </canvas>
+      <img id="image" alt="无法显示">
+    </div>
+    <script>
+      (function() {
+        // 渲染并绘制，用以展示的画布
+        const canvas = document.querySelector("#canvasElem"),
+          ctx = canvas.getContext("2d");
+        canvas.width = 600;
+        canvas.height = 600;
+        canvas.style.border = "1px solid #000";
+        // 用隐藏的画布画画
+        const canvasHide = document.createElement("canvas"),
+          ctx2 = canvasHide.getContext("2d");
+          canvasHide.width =  canvas.width;
+          canvasHide.height = canvas.height;
+        // 封装一个对象出来：
+        // 属性：width，height imgsrc speed  dir (方向)
+        // 行为；render（渲染） changeDir（方向改变）
+        console.dir(ctx);
+        const rect = new ItcastRect({
+          x: 60,
+          y: 60,
+          w: 100,
+          h: 100,
+          scaleX: 1.3,
+          scaleY: 0.8,
+          strokeStyle: "#CCFF99",
+          fillStyle: "#FFCCCC", 
+          opacity: 0.7,
+          rotation:23
+        });
+        rect.render(ctx2);
+        // 把一个canvas上的画渲染到另一个canvas上面去
+        ctx.drawImage(canvasHide, 0, 0);
+        // setInterval(() => {
+        // ctx.clearRect(0, 0, canvas.width, canvas.height );
+        //  rect.x+=10;
+        //  rect.render(ctx);
+        // }, 500);
+      })();
+    </script>
+  </body>
+</html>

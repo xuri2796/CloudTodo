@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no" >
+  <title>16-cavas库konva绘制进度条</title>
+</head>
+<style>
+  html,body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    overflow: hidden;
+  }
+</style>
+<body>
+<div id="container">
+</div>
+
+ <script src="../js/konva/konva.js"></script> 
+ <script>
+  //  第一步：创建舞台
+   const stage = new Konva.Stage({
+     container:'container',
+     width:window.innerWidth,
+     height:window.innerHeight,
+   })
+   // 创建层
+   var layer = new Konva.Layer();
+   stage.add(layer);
+  //  中心点坐标
+  var cenX = stage.width()/2,
+      cenY = stage.height()/2,
+      x = 1/8 *stage.width(),
+      y = cenY,
+      height = 1/12*stage.height(),
+      maxWidth = 3/4 * stage.width();
+      // 绘制一个进度条
+    let innerRect = new Konva.Rect({ //这是一个内部填充矩形
+      x,
+      y,
+      width:100,
+      height,
+      opacity:.7,
+      fill:'lightblue',
+      cornerRadius:height/2
+    })
+    // 把进度条里面的填充矩形放到层上去
+    layer.add(innerRect)
+// 创建进度条的边框
+  let outerFrame = new Konva.Rect({
+        x,
+        y,
+        width:maxWidth,
+        height,
+        stroke:'blue',
+        strokeWidth:4,
+        // fill:'green',
+        cornerRadius:height/2
+  })
+  layer.add(outerFrame)
+    layer.draw();
+    // konva的动画系统
+    innerRect.to({
+      width:maxWidth,
+      // 动画持续时间
+      duration:5,
+      // 动画函数
+      easing:Konva.Easings.StrongEaseInOut
+    })
+ </script>
+</body>
+</html>

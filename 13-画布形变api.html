@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>13-形变(缩放/位移/旋转)绘制api</title>
+</head>
+<body>
+  <div id="cvBox">
+    <canvas id="canvasElem">
+      ie9 以上才支持 canvas
+      你的浏览器不支持canvas，请升级浏览器
+    </canvas>
+  </div>
+  <script>
+    (function () {
+    const canvas = document.querySelector('#canvasElem');
+    let ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 600;
+    canvas.style.border= "1px solid #000";
+    ctx.fillRect(20,20,100,100); //形变之前的上下文并不会随着改变
+    ctx.save(); //保存当前(即save上面的上下文状态，下面的上下文不包含)上下文状态
+    ctx.translate(200, 200); //上下文位移到坐标位置(以画布为坐标系)
+    ctx.rotate(Math.PI / 180 * 30);
+    ctx.scale(2, 2); //上下文区域缩放
+    ctx.globalAlpha=.3; //上下文区域透明度,-- 此api下面给出的颜色才会有此透明效果
+    ctx.moveTo(0, 0); // 
+    ctx.lineTo(300, 0);
+    ctx.moveTo(0, 0); //
+    ctx.lineTo(0, 300);  
+    ctx.stroke();
+    ctx.fillRect(10,10,40,40);
+    ctx.restore(); // 复原上次save的上下文状态
+    ctx.fillStyle='rgb(22,33,233)';
+    ctx.fillRect(200,70,60,80) // 因为复原了上次的上下文，所以这个是在上次保存基础上绘制的
+    }())
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <title>05-小行星(面向对象)</title>
+</head>
+<style>
+ :root,body {
+   margin: 0;
+   padding: 0;
+ }
+</style>
+<body>
+  <div id="container">
+  </div>
+   <script src="../js/konva/konva.js"></script>
+   <script src="./js/Circle.js"></script> 
+   <script>
+    //  第一步：创建舞台
+     const stage = new Konva.Stage({
+       container:'container',
+       width:window.innerWidth,
+       height:window.innerHeight,
+     });
+    //   创建层
+    //  var layer = new Konva.Layer();
+    //   把层添加到舞台上去
+    //  stage.add(layer);
+      //  中心点坐标
+  var cenX = stage.width()/2,
+      cenY = stage.height()/2;
+    //  创建背景层
+     let bgLayer = new Konva.Layer(),
+      innerRadius = 252/2,
+      outerRadius = 220;
+     stage.add(bgLayer);
+     
+let cenCircleText = new CircText({
+  x:cenX,
+  y:cenY,
+  innerRadius:132/2,
+  outerRadius:90,
+  innerStyle:'#525a82',
+  outerStyle:'#e1e1e1',
+  fontSize:20,
+  text:"nekomiya"
+});
+let circle = new Konva.Circle({
+            x:cenX,
+            y:cenY,
+            radius:innerRadius,
+            stroke:'#DADAE0',
+            strokeWidth:4,
+            dash:[10,4] //虚线实线
+        })
+        bgLayer.add(circle)
+        let circle_L2 = new Konva.Circle({
+            x:cenX,
+            y:cenY,
+            radius:outerRadius,
+            stroke:'#DADAE0',
+            strokeWidth:4,
+            dash:[10,4] //虚线实线
+        })
+        bgLayer.add(circle_L2)
+// 动画层
+let animeteLayer = new Konva.Layer();
+stage.add(animeteLayer);
+// let x0 = cenX  + Math.cos(-60*Math.PI/180)*innerRadius,
+//     y0 = cenY + Math.sin(-60*Math.PI/180)*innerRadius;
+let L2Group = new Konva.Group({
+  x:cenX,
+  y:cenY
+});
+let L3Group = new Konva.Group({
+  x:cenX,
+  y:cenY
+});
+let cenCircleText_2 = new CircText({
+  x:Math.cos(160*Math.PI/180)*innerRadius,
+  y:Math.sin(160*Math.PI/180)*innerRadius,
+  innerRadius:30,
+  outerRadius:innerRadius-90,
+  innerStyle:'#ae8600',
+  outerStyle:'#e1e1e1',
+  fontSize:13
+});
+let L2_cenCircleText_HTML5 = new CircText({
+  x: Math.cos(60*Math.PI/180)*innerRadius,
+  y: Math.sin(60*Math.PI/180)*innerRadius,
+  innerRadius:30,
+  outerRadius:innerRadius-90,
+  innerStyle:'#da2233',
+  outerStyle:'#e1e1e1',
+  fontSize:12,
+  text:'HTML5'
+});
+let L3_cenCircleText_js = new CircText({
+  x: Math.cos(230*Math.PI/180)*outerRadius,
+  y: Math.sin(230*Math.PI/180)*outerRadius,
+  innerRadius:48,
+  outerRadius:outerRadius-(innerRadius-90)*2-90,
+  innerStyle:'#202033',
+  outerStyle:'#e1e1e1',
+  fontSize:12,
+  text:'JAVASCRIPT'
+});
+cenCircleText.addToGroupOrLayer(bgLayer);
+// 实例调用
+cenCircleText_2.addToGroupOrLayer(L2Group);
+L2_cenCircleText_HTML5.addToGroupOrLayer(L2Group);
+
+L3_cenCircleText_js.addToGroupOrLayer(L3Group)
+animeteLayer.add(L2Group)
+animeteLayer.add(L3Group)
+animeteLayer.draw()
+bgLayer.draw()
+let rotateAnglPerSecond = 60;//设置每秒旋转的角度
+let animete = new Konva.Animation(function(frame){
+  let rotateAngle = rotateAnglPerSecond * frame.timeDiff/1000;
+  L2Group.rotate(rotateAngle);
+  // 获取 第一轨道上的圆的内部组进行反向旋转
+  L2Group.getChildren().each(function(item,index){
+    item.rotate(-rotateAngle)
+  })
+  // 第二轨道的运动动画
+  L3Group.rotate(-rotateAngle);
+  // 获取 第一轨道上的圆的内部组进行反向旋转
+  L3Group.getChildren().each(function(item,index){
+    item.rotate(rotateAngle)
+  })
+},animeteLayer)
+animete.start()
+// Konva的事件
+animeteLayer.on('mouseover',()=>{
+  rotateAnglPerSecond = 15
+})
+animeteLayer.on('mouseout',()=>{
+  rotateAnglPerSecond = 60
+})
+  </script> 
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div> 
+ <canvas>
+     浏览器不支持canvas
+ </canvas>
+</div>
+<script>
+    // 第一种创建对象：json 的方式
+       let o = {key:'val'}
+     // 缺点：不能把json对象当成一个模板，通过new来构造一个新对象
+
+     // 第二种：object 实例创建
+     let o2 = new Object(); //创建一个object对象
+     // 缺点：不能通过new 来构造新对象
+
+    //  第三种：构造函数创建
+    function A() {
+        this.name = '2233';
+        this.age = 18;
+        this.show = function (){
+            console.log(this.age);
+        }
+
+    }
+     let a_obj = new A (), a_obj2 = new A()
+     a_obj.age = 23; //
+     a_obj.gender = 'man' 
+    console.log('a_obj2.age--',a_obj2.age);  //18 结果说明实例是独立的，都有各自的内存空间
+    console.log('a_obj2.gender--',a_obj2.gender);// undefined
+    var obj_a = {
+        name:""
+};
+const arr = [112,22,3333] 
+    console.dir(arr)
+console.dir(A);
+console.dir(obj_a);
+
+function Cat () {
+    // 隐藏操作
+    // this = {} 让this指向一个空对象
+    // var 
+}
+
+// 如果构造函数有return 就返回return的对象，没有 就返回this这个对象
+function Brid () {
+    this.age = 23;
+    this.show = function () {}
+        // return this
+        return {
+            demo:'我的世界'
+        }
+}
+const t = new Brid();
+console.log('--t.demo--',t.demo); // 123
+
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>11-序列帧动画（面向对象）</title>
+  <script src="js/Sprite.js"></script>
+</head>
+<body>
+  <div id="cvBox">
+    <canvas id="canvasElem">
+      ie9 以上才支持 canvas
+      你的浏览器不支持canvas，请升级浏览器
+    </canvas>
+  </div>
+  <button class="btn-l">←</button>
+  <button class="btn-r">→</button>
+  <button class="btn-t">↑</button>
+  <button class="btn-b">↓</button>
+  <script>
+    (function () {
+    const canvas = document.querySelector('#canvasElem'),
+    btnL = document.querySelector('.btn-l'),
+    btnR = document.querySelector('.btn-r'),
+    btnT = document.querySelector('.btn-t'),
+    btnB = document.querySelector('.btn-b');
+    let ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 600;
+    canvas.style.border= "1px solid #000";
+    // 封装一个对象出来：
+    // 属性：width，height imgsrc speed  dir (方向)
+    // 行为；render（渲染） changeDir（方向改变）
+    console.dir(ctx);
+    const s = new Sprite({
+      imgSrc:'./images/DOM-1.png',
+      x:200,
+      y:200,
+      w:32*2,
+      h:48*2
+    });
+    s.render(ctx);
+    // 为什么人物的方向不是事件直接改变,而是给人物这个对象添加函数去执行？？？（关于动态与静态）
+    // console.log(s._dirIndex,'2222');
+    // 绑定按钮的点击事件
+    btnL.onclick = function(){
+      //人物向左跑
+      console.log('人物向左跑');
+      s.changeDir('left')
+     };
+    btnR.onclick = function(){
+      //人物向右跑
+      console.log('人物向右跑');
+      s.changeDir('right')
+     };
+    btnT.onclick = function(){
+      //人物向上跑
+      console.log('人物向上跑');
+      s.changeDir('up')
+     };
+    btnB.onclick = function(){
+      //人物向后跑
+      console.log('人物向下跑');
+      s.changeDir('down')
+     }
+    }())
+
+  </script>
+</body>
+
+</html>

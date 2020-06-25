@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02canvas案例-表格绘制</title>
+</head>
+<body>
+  <div id="cvBox">
+    <canvas id="canvasElem">
+      ie9 以上才支持 canvas
+      你的浏览器不支持canvas，请升级浏览器
+    </canvas>
+    <div> </div>
+  </div>
+  <script>
+    (function () {
+    const canvas = document.querySelector('#canvasElem');
+    let ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 600;
+    canvas.style.border = "1px solid #000";
+    ctx.beginPath();
+    ctx.lineWidth=8;
+    ctx.rect(20, 70, 500, 500); //矩形的绘制 最大的矩形
+    ctx.strokeStyle='red';
+    ctx.stroke();
+    ctx.fill();
+    ctx.beginPath();
+    //矩形（无填充 -- 无法予以色彩填充）ctx.strokeRect(x,y, w, h);
+    ctx.fillStyle = 'pink';
+    ctx.strokeStyle= '#23d5a4'
+    ctx.strokeRect(30,80, 120, 80);
+    ctx.stroke()
+    // 填充"的矩形 (无法予以描边)
+    // ----------------------------------------
+    ctx.beginPath();
+    ctx.fillRect(40,300,100,120);
+    // ctx.clearRect(30, 230, 300, 335); // 矩形橡皮擦
+    ctx.fill();
+    ctx.stroke();
+//       矩形
+// 方法	描述
+// rect()	创建矩形。
+// fillRect()	绘制"被填充"的矩形。
+// strokeRect()	绘制矩形（无填充）。
+// clearRect()	在给定的矩形内清除指定的像素。
+    }())
+
+  </script>
+</body>
+
+</html>

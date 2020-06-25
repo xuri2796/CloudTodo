@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <title>05-小行星(面向过程)</title>
+</head>
+<style>
+ :root,body {
+   margin: 0;
+   padding: 0;
+ }
+
+</style>
+<body>
+  <div id="container">
+  </div>
+  
+   <script src="../js/konva/konva.js"></script> 
+   <script>
+    //  第一步：创建舞台
+     const stage = new Konva.Stage({
+       container:'container',
+       width:window.innerWidth,
+       height:window.innerHeight,
+     });
+      //  中心点坐标
+  var cenX = stage.width()/2,
+      cenY = stage.height()/2;
+    //  创建背景层
+     let bgLayer = new Konva.Layer(),
+      innerRadius = 252/2,
+      outerRadius = 220;
+     stage.add(bgLayer);
+    //  绘制弧
+      // 绘制圆形虚线
+     let circle = new Konva.Circle({
+      x:cenX,
+      y:cenY,
+      radius:innerRadius,
+      stroke:'#DADAE0',
+      strokeWidth:4,
+      dash:[10,4] //虚线实线
+     })
+    // 绘制填充圆形
+     let cenCircle = new Konva.Circle({
+      x:cenX,
+      y:cenY,
+      radius:132/2,
+      fill:'#525a82',
+     })
+    // 绘制透明环绕圆形
+    let cenRing = new Konva.Ring({
+      x:cenX,
+      y:cenY,
+      innerRadius:132/2,
+      outerRadius:180/2,
+      fill:'#e1e1e1',
+      opacity:.5
+     }),
+     cenLine_l = new Konva.Line({
+      points:[cenX,0,cenX,cenY*2],
+      stroke:'#5a22oo',
+     }),
+     cenLine_h = new Konva.Line({
+      points:[0,cenY,cenX*2,cenY],
+      stroke:'#5a22oo',
+     }),
+    // 绘制中心圆的文字
+    cenText = new Konva.Text({
+      x:cenX-120/2,
+      y:cenY-9,
+      // 获取/设置文本区域的宽度，包括填充。
+      width:120,
+      // 文本在文本区域的宽度的居中
+      align:'center',
+      text:'BBBBB',
+      fontSize:22,
+      fontFamily:'微软雅黑',
+      fontStyle:'bold'
+     });
+     bgLayer.add(circle);
+     bgLayer.add(cenCircle);
+     bgLayer.add(cenRing);
+     bgLayer.add(cenText);
+     bgLayer.add(cenLine_l);
+     bgLayer.add(cenLine_h);
+    //把层渲染到舞台上去  
+    // -画 --> 层(create创建的canvas,多层的话用group) --> 舞台 (作品展示,canvas标签)
+    bgLayer.draw();
+
+    // 动画层绘制
+    let  animeteLayer = new Konva.Layer()
+    stage.add(animeteLayer);
+    // 计算行星的圆心坐标
+    let x0 = cenX+Math.cos(-60*Math.PI/180)*innerRadius,
+    y0 = cenY + Math.sin(-60*Math.PI/180)*innerRadius;
+    let cenCircle2 = new Konva.Circle({
+      x:x0,
+      y:y0,
+      radius:30,
+      fill:'#525a82',
+      opacity:.7
+     }),
+      cenRing2 = new Konva.Ring({
+      x:x0,
+      y:y0,
+      innerRadius:30,
+      outerRadius:innerRadius-90,
+      fill:'#e1e1e1',
+      opacity:.8
+     }),
+     cenText2 = new Konva.Text({
+      x:x0-60/2,
+      y:y0-9,
+      // 获取/设置文本区域的宽度，包括填充。
+      width:60,
+      // 文本在文本区域的宽度的居中
+      align:'center',
+      text:'abc',
+      fontSize:20,
+      fontFamily:'微软雅黑',
+      fontStyle:'bold'
+     });
+     animeteLayer.add(cenRing2);
+     animeteLayer.add(cenCircle2);
+     animeteLayer.add(cenText2);
+     animeteLayer.draw()
+  </script> 
+</body>
+</html>

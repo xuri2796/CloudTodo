@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>05-canvas案例-绘制圆弧</title>
+</head>
+<body>
+  <div id="cvBox">
+    <canvas id="canvasElem">
+      ie9 以上才支持 canvas
+      你的浏览器不支持canvas，请升级浏览器
+    </canvas>
+    <canvas id="canvasElem-2"></canvas>
+  </div>
+  <script>
+    (function () {
+    const canvas = document.querySelector('#canvasElem');
+    let ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 600;
+    canvas.style.border = "1px solid #000"
+    ctx.beginPath();
+    ctx.moveTo(300, 300);
+    // 绘制一条从 0 到 30 的弧度 (度化成弧度的公式：弧度＝度×Math.PI/180)
+    //context.arc(x,y(圆心坐标),r(半径),sAngle(起始弧度),eAngle(结束弧度),counterclockwise(可选。规定应该逆时针还是顺时针绘图。False = 顺时针，true = 逆时针。));
+    ctx.arc(300,300,200,30*Math.PI/180,150*Math.PI/180,false)
+    ctx.closePath();
+    ctx.fillStyle='pink';
+    ctx.fill();
+    }())
+(function () {
+const canvas = document.querySelector('#canvasElem-2');
+let ctx = canvas.getContext('2d');
+canvas.width = 600;
+canvas.height = 600;
+canvas.style.border = "1px solid #000"
+var data = [
+  {value:.3,color:'#eaff56',title:'我的世界01'},
+  {value:.2,color:'#ff461f',title:'我的世界02'},
+  {value:.1,color:'#70f3ff',title:'我的世界03'},
+  {value:.1,color:'#e9e7ef',title:'我的世界04'},
+  {value:.3,color:'#44cef6',title:'我的世界05'}
+  ]
+//   锐角三角函数公式
+//  sin α=∠α的对边 / 斜边 
+//  cos α=∠α的邻边 / 斜边
+//  tan α=∠α的对边 / ∠α的邻边
+  // 圆心坐标、半径,初始开始角度(tip:坐标原点以画布(即canvas元素占的区域)左上角为原点，并非以页面左上为原点)
+  let x0 = 300,y0 = 300,r = 180,beginningAngle = 0
+for (var index = 0; index < data.length; index++) {
+  ctx.beginPath()
+  ctx.moveTo(x0,y0)
+  // 每块占的角度区域
+  var angle = 360*data[index].value;
+  ctx.fillStyle = data[index].color
+  let startAngle = beginningAngle,endAngle=beginningAngle + angle;
+  // ctx.arc(x, y, radius, Math.PI / 180 * startAngle, Math.PI / 180 * endAngle, anticlockwise);
+  ctx.arc(x0, x0, r, Math.PI / 180 * startAngle, Math.PI / 180 * endAngle);
+  ctx.closePath()
+  ctx.fill()
+  beginningAngle += angle;
+}
+}())
+  </script>
+</body>
+
+</html>

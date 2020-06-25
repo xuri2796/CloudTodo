@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>函数调用模式四种</title>
+</head>
+<body>
+  <script>
+    // 【第一种】 函数执行模式
+    function add () {
+      console.log(this);
+      return a+b;
+    }
+// 【第二种】 对象方法的调用模式
+
+function Cat () {
+  this.show = function () {
+    console.log(this);
+  }
+}
+var c = new Cat(); 
+c.show() // 如果对象调用自己的方法的模式，这个方法内部的this指向当前这对象
+// 所有的事件响应都是 对象方法的调用模式
+// 【第三种】 构造器调用 
+// 构造器当中的this只会赋值给构造出来的对象,前提没有return
+function Cat () {
+  this.show = function () {
+    console.log(this);
+  }
+}
+var c = new Cat();
+// 【第四种】 call 和apply 调用模式
+  </script>
+</body>
+</html>

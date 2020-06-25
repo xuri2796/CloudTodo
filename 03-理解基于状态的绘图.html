@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02canvas案例-表格绘制</title>
+</head>
+<body>
+  <div id="cvBox">
+    <canvas id="canvasElem">
+      ie9 以上才支持 canvas
+      你的浏览器不支持canvas，请升级浏览器
+    </canvas>
+  </div>
+  <script>
+    (function () {
+    const canvas = document.querySelector('#canvasElem');
+    let ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 600;
+    canvas.style.border= "1px solid #000"
+    // 绘制一个表格
+    const rectH = 10; // 这是一个单元格的/表格的 一个单位
+    const h =  canvas.width/rectH;
+    ctx.beginPath();
+     for (let index = 0; index <= h; index++) {
+      //  1. 绘制横线 (0,0-600,0)(0,10-600,10)
+       ctx.moveTo(0,rectH*index);
+       ctx.lineTo(canvas.height,rectH*index);
+      //竖线绘制
+      ctx.moveTo(rectH*index,0);
+      ctx.lineTo(rectH*index,canvas.width)
+     }
+     ctx.lineWidth=1.2;
+     ctx.strokeStyle='rgba(201,32,42,.1)';
+     ctx.stroke();
+    // 在网格上绘制坐标轴
+     ctx.beginPath();
+     // 绘制y轴
+     ctx.moveTo(60,40);
+     ctx.lineTo(60,530);
+     ctx.moveTo(60,40);
+     ctx.lineTo(40,60)
+    ctx.moveTo(60,40)
+    ctx.lineTo(80,60)
+     // 绘制x轴
+     ctx.moveTo(60,530)
+     ctx.lineTo(560,530);
+     ctx.moveTo(560,530);
+     ctx.lineTo(540,510)
+    ctx.moveTo(560,530)
+    ctx.lineTo(540,550)
+     ctx.lineWidth=2;
+     ctx.strokeStyle='blue';
+     ctx.stroke();
+    }())
+
+  </script>
+</body>
+
+</html>

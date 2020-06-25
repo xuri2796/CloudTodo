@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>07-图片绘制api</title>
+</head>
+<body>
+  <div id="cvBox">
+    <canvas id="canvasElem">
+      ie9 以上才支持 canvas
+      你的浏览器不支持canvas，请升级浏览器
+    </canvas>
+  </div>
+  <script>
+    (function () {
+    const canvas = document.querySelector('#canvasElem');
+    let ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 600;
+    canvas.style.border= "1px solid #000"
+    // 第一步：创建图片的dom对象
+    const img = new Image()
+    img.src = './images/th.jfif'
+    img.onload = function () {
+      // ctx.drawImage(Image(图片dom对象), dX, dY, dWidth, dHeight);
+      // ctx.drawImage(img, 50, 50);
+      // 保持图片的宽高比
+      // 图片原高/图片原宽 = 绘制高/绘制宽(ow(原宽)*h = oh*w)
+      ctx.drawImage(img,50,50,200,img.height*200/img.width)
+      // 绘制裁切图片
+      const img2 = new Image()
+      img2.src = './images/DOM-1.png'
+      img2.onload = function() {
+        
+      }
+    }
+    }())
+
+  </script>
+</body>
+
+</html>

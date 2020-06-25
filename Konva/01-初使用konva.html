@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>15-cavas库konva绘制一个矩形</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+<body>
+<div id="container">
+
+</div>
+
+ <script src="../js/konva/konva.js"></script> 
+ <script>
+  //  第一步：创建舞台
+   const stage = new Konva.Stage({
+     container:'container',
+     width:window.innerWidth,
+     height:window.innerHeight,
+   })
+   // 创建一个层
+   let layer  = new Konva.Layer();
+   // 第三步：把层添加到舞台上去。
+   stage.add(layer);
+   // 第四步：创建一个矩形
+   let rect = new Konva.Rect({
+     x:100,
+     y:100,
+     //opacity --- n. 不透明 / 半透明
+     opacity:.4,
+     rotation:30,
+     width:200,
+     height:300,
+     scaleX:1.03,
+     scaleY:1.13,
+     draggable:true,
+     fill:'orange'
+   })
+   // 第五部：把矩形添加到层上去
+   layer.add(rect);
+  //  第六步：把层渲染到舞台上去
+   layer.draw();
+ </script>
+</body>
+</html>

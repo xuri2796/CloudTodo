@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <title>Document</title>
+</head>
+<style>
+ :root,body {
+   margin: 0;
+   padding: 0;
+ }
+
+</style>
+<body>
+  <div id="container">
+  </div>
+  
+   <script src="../js/konva/konva.js"></script> 
+   <script>
+    //  第一步：创建舞台
+     const stage = new Konva.Stage({
+       container:'container',
+       width:window.innerWidth,
+       height:window.innerHeight,
+     });
+     // 创建层
+     var layer = new Konva.Layer();
+    //  把层添加到舞台上去
+     stage.add(layer);
+      //  中心点坐标
+  var cenX = stage.width()/2,
+      cenY = stage.height()/2,
+      innerRect = new Konva.Rect({
+        x:1/8*stage.width(),
+        y:1/2*stage.height(),
+        width:1/3*stage.width(),
+        height:1/12*stage.height(),
+        fill:'#cdcd00',
+        cornerRadius:1/24 *stage.height()
+      });
+      outerRect = new Konva.Rect({
+        x:1/8*stage.width(),
+        y:1/2*stage.height(),
+        width:3/4*stage.width(),
+        height:1/12*stage.height(),
+        stroke:'#e00fff',
+        strokeWidth:4,
+        cornerRadius:1/24 *stage.height()
+      })
+
+    //  把创建好的形状/图/画放到层
+      layer.add(innerRect);
+      layer.add(outerRect);
+    //把层渲染到舞台上去
+      layer.draw();
+
+      // 分析进度条的属性和方法,用面向对象的思路来编码
+      //  进度条
+      //  属性：w,h,x,y,innerStyle(填充色)，outerStyle(外框色)
+      // 方法：进度的改变 changeValue
+      // 将创建好的进度条添加到层：addToGroupOrLayer(arg)
+  </script> 
+</body>
+</html>

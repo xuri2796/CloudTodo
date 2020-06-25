@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas入门</title>
+</head>
+<body>
+  <!-- canvas 不准用css予以宽高 -->
+  <canvas id="highlight" width="600" height="600"> 
+    ie9 以上才支持 canvas 
+    你的浏览器不支持canvas，请升级浏览器
+  </canvas>
+  <script>
+    //第一步： 拿到canvas标签
+    const canvas = document.querySelector('#highlight');
+    //第二部：拿到canvas的上下文
+    let ctx = canvas.getContext('2d');
+   //第三步： 绘制
+    ctx.moveTo(100,100); //moveTo(x,y)	把路径移动到画布中的指定点，不创建线条
+    ctx.lineTo(200,100); //lineTo()	添加一个新点，然后在画布中创建从该点到最后指定点的线条
+    ctx.lineTo(100,200);
+    // ctx.lineTo(100,100) //此时三角闭合啦 
+    ctx.closePath(); //路径闭合 可以调用closePath 闭合 也可以继续划线闭合
+    ctx.strokeStyle='pink';  //笔触的颜色、渐变或模式
+    
+    // 设置线宽
+    // ctx.lineWidth=6;  // 线宽是以线的两边增宽（内外各3px）
+    // stroke() 方法会实际地绘制出通过 moveTo() 和 lineTo() 方法定义的路径。默认颜色是黑色。
+    // ctx.stroke(); // 也即是笔触
+    ctx.fillStyle='rgb(150, 209, 135,.3)'; // 绘图填充色
+
+    ctx.fill(); //fill()	填充当前绘图(路径) 默认黑色
+        
+    
+  </script>
+</body>
+</html>

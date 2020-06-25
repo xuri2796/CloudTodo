@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>08-序列帧动画</title>
+</head>
+<body>
+  <div id="cvBox">
+    <canvas id="canvasElem">
+      ie9 以上才支持 canvas
+      你的浏览器不支持canvas，请升级浏览器
+    </canvas>
+  </div>
+  <button class="btn-l">←</button>
+  <button class="btn-r">→</button>
+  <button class="btn-t">↑</button>
+  <button class="btn-b">↓</button>
+  <script>
+    (function () {
+    const canvas = document.querySelector('#canvasElem');
+    let ctx = canvas.getContext('2d'),
+    btnL = document.querySelector('.btn-l'),
+    btnR = document.querySelector('.btn-r'),
+    btnT = document.querySelector('.btn-t'),
+    btnB = document.querySelector('.btn-b'),
+    dirIndex =0;//方向(上0,左1，右2，下3) ;
+    canvas.width = 600;
+    canvas.height = 600;
+    canvas.style.border= "1px solid #000";
+    // 第一步：创建图片的dom对象
+    const img = new Image();
+    img.src = './images/DOM-1.png';
+    img.onload = function () {
+      var frameIndex = 0; 
+// 剪切图像，并在画布上定位被剪切的部分：
+// context.drawImage(img,sx,sy(开始图像剪切的坐标位置。),swidth,sheight(被剪切图像的宽高),x,y,width,height);
+      setInterval(()=>{
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // 重置canvas宽高，canvas里面的内容会清空
+      ctx.drawImage(img, frameIndex*32, dirIndex*48, 32, 48,80,30,32*2,48*2);
+      frameIndex++;
+      frameIndex%=4; // frameIndex = frameIndex%4的缩写 因为每4帧一轮询
+      },1000/10) // 每秒10帧
+    };
+    // 绑定按钮的点击事件
+     btnL.onclick = function(){
+      //人物向左跑
+      console.log('人物向左跑');
+      dirIndex = 1;
+     };
+     btnR.onclick = function(){
+      //人物向左跑
+      console.log('人物向右跑');
+      dirIndex = 2;
+     };
+     btnT.onclick = function(){
+      //人物向左跑
+      console.log('人物向上跑');
+      dirIndex = 3;
+     };
+     btnB.onclick = function(){
+      //人物向左跑
+      console.log('人物向下跑');
+      dirIndex = 0;
+     }
+    }())
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>15-cavas库konva绘制一个矩形</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+<body>
+<div id="container">
+</div>
+
+ <script src="../js/konva/konva.js"></script> 
+ <script>
+  //  第一步：创建舞台
+   const stage = new Konva.Stage({
+     container:'container',
+     width:window.innerWidth,
+     height:window.innerHeight,
+   })
+       //  中心点坐标
+  var cenX = stage.width()/2,
+      cenY = stage.height()/2;
+      // 柱状图数据
+      let data = [
+        {name:'H5',value:'.8',color:'#66CCCC'},
+        {name:'NODE',value:'.3',color:'#CCFF66'},
+        {name:'VUE',value:'.7',color:'#FF99CC'},
+        {name:'JS',value:'.9',color:'#FF6666'},
+        {name:'C3',value:'.4',color:'#FF9999'},
+      ]
+   // 创建一个层
+   let layer  = new Konva.Layer();
+   //把层添加到舞台上去。
+   stage.add(layer);
+    // 计算底线的起始坐标和长度
+    //  x 从文档1/8 处 起点 两端间距一致(都是1/8)
+    //  y: 3/4 文档高度 
+    let l_x = stage.width() * 1/8,
+    l_y = stage.height() * 3/4,
+    pillar_length = stage.width() * 3/4, // 也是横坐标的最大宽度
+    pillar_height = stage.height()*1/2; //  纵坐标最大高度
+   // 绘制底线
+   let bsLine = new Konva.Line({
+    points:[l_x,l_y,l_x+pillar_length,l_y],
+    strokeWidth:1,
+    stroke:'#009966'
+   });
+   
+   data.forEach((item,index) => {
+    //  创建矩形
+    let pillar_rect = new Konva.Rect({
+      x:l_x+pillar_length/data.length*(index+1/4),
+      y:l_y-pillar_height*item.value,
+      width:pillar_length/data.length/2,
+      height:pillar_height*item.value,
+      fill:item.color,
+      cornerRadius:5,
+      opacity:.8
+    })
+    layer.add(pillar_rect)
+    let pillar_text = new Konva.Text({
+      x:l_x+pillar_length/data.length*index,
+      y:l_y-pillar_height*item.value - 40/2,
+      text:item.value*100 +'%',
+      align:'center',
+      width:pillar_length/data.length,
+      fontSize:22,
+      fill:item.color,
+      name:'percentage'
+    })
+    layer.add(pillar_text)
+    // 把文字的原点用组 移到，默认围绕原点旋转
+    let group = new  Konva.Group({
+     x:l_x+pillar_length/data.length*(1/2+index),
+     y:l_y+ 5,
+     width:pillar_length/data.length,
+   })
+    let pillar_name = new Konva.Text({
+      x:0,
+      y:0,
+      text:item.name,
+      // width:pillar_length/data.length,
+      // align:'center', // 用居中不行
+      fontSize:22,
+      fill:item.color,
+      rotation:30,
+    })
+    group.add(pillar_name)
+    layer.add(group)
+   });
+   layer.add(bsLine)
+  // 把层渲染到舞台上去
+   layer.draw();
+
+  //  
+stage.on('contentClick',()=>{
+  layer.find('Rect').each((item,index)=>{
+    // 状态初始化
+    item.height(0);
+    item.y(l_y);
+    item.to({
+      duration:1,
+      y:l_y-pillar_height*data[index].value,
+      height:data[index].value*pillar_height
+    })
+  })
+  layer.find('.percentage').each((item,index)=>{
+    // 状态初始化
+    item.y(l_y-40/2);
+    item.to({
+      duration:1,
+      y:l_y-pillar_height*data[index].value-40/2,
+    })
+  })
+
+})
+ </script>
+</body>
+</html>

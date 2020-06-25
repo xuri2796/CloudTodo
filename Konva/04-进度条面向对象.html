@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <title>Document</title>
+</head>
+<style>
+ :root,body {
+   margin: 0;
+   padding: 0;
+ }
+
+</style>
+<body>
+  <div id="container">
+  </div>
+   <script src="../js/konva/konva.js"></script> 
+   <script src="../js/ProgressBar.js"></script>
+   <script>
+    //  第一步：创建舞台
+     const stage = new Konva.Stage({
+       container:'container',
+       width:window.innerWidth,
+       height:window.innerHeight,
+     });
+     // 创建层
+     var layer = new Konva.Layer();
+    //  把层添加到舞台上去
+     stage.add(layer);
+      //  中心点坐标
+  var cenX = stage.width()/2,
+      cenY = stage.height()/2,
+      progress = new ProgressBar({
+        x:1/7*stage.width(),
+        y:1/2*stage.height(),
+        w:2/3*stage.width(),
+        h:1/12*stage.height(),
+        fillStyle:'bd2233'
+      });
+      progress.addToroupOrLayer(layer)
+      progress.changeValue(30)
+    //把层渲染到舞台上去
+      layer.draw();
+  </script> 
+</body>
+</html>
